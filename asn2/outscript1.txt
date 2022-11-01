@@ -1,0 +1,313 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| assign2db           |
+| flipped_classroom_3 |
+| mysql               |
+| performance_schema  |
+| vetoffice           |
++---------------------+
+6 rows in set (0.00 sec)
+
+--------------
+DROP DATABASE IF EXISTS assign2db
+--------------
+
+Query OK, 4 rows affected (0.28 sec)
+
+--------------
+CREATE DATABASE assign2db
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+CREATE TABLE doctor(licensenum CHAR(4) NOT NULL, firstname VARCHAR(20) NOT NULL, lastname VARCHAR(20) NOT NULL, licensedate DATE NOT NULL, birthdate DATE NOT NULL, hosworksat CHAR(3), speciality VARCHAR(30), PRIMARY KEY(licensenum))
+--------------
+
+Query OK, 0 rows affected (0.11 sec)
+
+--------------
+CREATE TABLE patient (ohipnum CHAR(9) NOT NULL,firstname VARCHAR(20) NOT NULL, lastname VARCHAR(20) NOT NULL,birthdate DATE NOT NULL, PRIMARY KEY(ohipnum))
+--------------
+
+Query OK, 0 rows affected (0.08 sec)
+
+--------------
+CREATE TABLE hospital (hoscode CHAR(3) NOT NULL, hosname VARCHAR(30) NOT NULL, city VARCHAR (20) NOT NULL, prov CHAR(2) NOT NULL, numofbed SMALLINT NOT NULL, headdoc CHAR(4),headdocstartdate DATE,  PRIMARY KEY (hoscode),   FOREIGN KEY (headdoc) REFERENCES doctor(licensenum))
+--------------
+
+Query OK, 0 rows affected (0.22 sec)
+
+--------------
+ALTER TABLE doctor ADD CONSTRAINT fk_worksat FOREIGN KEY (hosworksat) REFERENCES hospital(hoscode)
+--------------
+
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+CREATE TABLE looksafter(licensenum CHAR(4) NOT NULL, ohipnum CHAR(9) NOT NULL, PRIMARY KEY (licensenum, ohipnum), FOREIGN KEY(licensenum) REFERENCES doctor(licensenum) ON DELETE RESTRICT, FOREIGN KEY (ohipnum) REFERENCES patient(ohipnum) ON DELETE CASCADE)
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+--------------
+SHOW TABLES
+--------------
+
++---------------------+
+| Tables_in_assign2db |
++---------------------+
+| doctor              |
+| hospital            |
+| looksafter          |
+| patient             |
++---------------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM patient
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO patient VALUES ('110112113','Monica','Geller','1964-05-12')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO patient VALUES ('444555666','Ross','Geller','1967-08-12')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO patient VALUES ('111222333','Rachel','Green','1962-09-17')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO patient VALUES ('333444555','Chandler','Geller','1970-06-11')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO patient VALUES ('667766777','Joey','Bing','1971-06-20')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO patient VALUES ('111222111','Phoebe','Bing','1959-12-24')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM patient
+--------------
+
++-----------+-----------+----------+------------+
+| ohipnum   | firstname | lastname | birthdate  |
++-----------+-----------+----------+------------+
+| 110112113 | Monica    | Geller   | 1964-05-12 |
+| 111222111 | Phoebe    | Bing     | 1959-12-24 |
+| 111222333 | Rachel    | Green    | 1962-09-17 |
+| 333444555 | Chandler  | Geller   | 1970-06-11 |
+| 444555666 | Ross      | Geller   | 1967-08-12 |
+| 667766777 | Joey      | Bing     | 1971-06-20 |
++-----------+-----------+----------+------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hospital
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO hospital VALUES ('BBC','St. Joseph', 'London', 'ON', 1000, NULL, NULL)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hospital VALUES ('ABC','Victoria', 'London', 'ON', 1600, NULL, NULL)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO hospital VALUES ('DDE','Victoria', 'Victoria', 'BC', 1200, NULL, NULL)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+SELECT * FROM hospital
+--------------
+
++---------+------------+----------+------+----------+---------+------------------+
+| hoscode | hosname    | city     | prov | numofbed | headdoc | headdocstartdate |
++---------+------------+----------+------+----------+---------+------------------+
+| ABC     | Victoria   | London   | ON   |     1600 | NULL    | NULL             |
+| BBC     | St. Joseph | London   | ON   |     1000 | NULL    | NULL             |
+| DDE     | Victoria   | Victoria | BC   |     1200 | NULL    | NULL             |
++---------+------------+----------+------+----------+---------+------------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO doctor VALUES ('RD34','Bernie', 'Kavorikian','1980-09-09', '1930-06-11','BBC','Urologist')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO doctor VALUES ('GD56','Joey', 'Shabado','1960-06-24', '1969-06-24','BBC','Podiatrist')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO doctor VALUES ('HT45','Ross', 'Clooney','1987-06-20', '1940-06-22','DDE','Surgeon')
+--------------
+
+Query OK, 1 row affected (0.12 sec)
+
+--------------
+INSERT INTO doctor VALUES ('YT67','Ben', 'Spock','1955-02-20', '1930-06-11','DDE','Urologist')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO doctor VALUES ('JK78','Mandy', 'Webster','1990-09-08', '1969-10-11','BBC','Surgeon')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO doctor VALUES ('SE66','Colleen', 'Aziz','1989-08-24', '1999-01-26','ABC','Surgeon')
+--------------
+
+Query OK, 1 row affected (0.08 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++------------+-----------+------------+-------------+------------+------------+------------+
+| licensenum | firstname | lastname   | licensedate | birthdate  | hosworksat | speciality |
++------------+-----------+------------+-------------+------------+------------+------------+
+| GD56       | Joey      | Shabado    | 1960-06-24  | 1969-06-24 | BBC        | Podiatrist |
+| HT45       | Ross      | Clooney    | 1987-06-20  | 1940-06-22 | DDE        | Surgeon    |
+| JK78       | Mandy     | Webster    | 1990-09-08  | 1969-10-11 | BBC        | Surgeon    |
+| RD34       | Bernie    | Kavorikian | 1980-09-09  | 1930-06-11 | BBC        | Urologist  |
+| SE66       | Colleen   | Aziz       | 1989-08-24  | 1999-01-26 | ABC        | Surgeon    |
+| YT67       | Ben       | Spock      | 1955-02-20  | 1930-06-11 | DDE        | Urologist  |
++------------+-----------+------------+-------------+------------+------------+------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM looksafter
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('GD56','110112113')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('GD56','333444555')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('GD56','667766777')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('HT45','444555666')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('JK78','667766777')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('JK78','111222333')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('SE66','111222333')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('YT67','111222333')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('YT67','111222111')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM looksafter
+--------------
+
++------------+-----------+
+| licensenum | ohipnum   |
++------------+-----------+
+| GD56       | 110112113 |
+| YT67       | 111222111 |
+| JK78       | 111222333 |
+| SE66       | 111222333 |
+| YT67       | 111222333 |
+| GD56       | 333444555 |
+| HT45       | 444555666 |
+| GD56       | 667766777 |
+| JK78       | 667766777 |
++------------+-----------+
+9 rows in set (0.00 sec)
+
+Bye

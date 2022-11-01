@@ -1,0 +1,441 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| assign2db           |
+| flipped_classroom_3 |
+| mysql               |
+| performance_schema  |
+| vetoffice           |
++---------------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hospital
+--------------
+
++---------+------------+----------+------+----------+---------+------------------+
+| hoscode | hosname    | city     | prov | numofbed | headdoc | headdocstartdate |
++---------+------------+----------+------+----------+---------+------------------+
+| ABC     | Victoria   | London   | ON   |     1600 | NULL    | NULL             |
+| BBC     | St. Joseph | London   | ON   |     1000 | NULL    | NULL             |
+| DDE     | Victoria   | Victoria | BC   |     1200 | NULL    | NULL             |
++---------+------------+----------+------+----------+---------+------------------+
+3 rows in set (0.00 sec)
+
+--------------
+UPDATE hospital SET headdoc = 'GD56', headdocstartdate = '2010-12-19' WHERE hoscode = 'BBC'
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE hospital SET headdoc = 'SE66', headdocstartdate = '2004-05-30' WHERE hoscode = 'ABC'
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE hospital SET headdoc = 'YT67', headdocstartdate = '2001-06-01' WHERE hoscode = 'DDE'
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM hospital
+--------------
+
++---------+------------+----------+------+----------+---------+------------------+
+| hoscode | hosname    | city     | prov | numofbed | headdoc | headdocstartdate |
++---------+------------+----------+------+----------+---------+------------------+
+| ABC     | Victoria   | London   | ON   |     1600 | SE66    | 2004-05-30       |
+| BBC     | St. Joseph | London   | ON   |     1000 | GD56    | 2010-12-19       |
+| DDE     | Victoria   | Victoria | BC   |     1200 | YT67    | 2001-06-01       |
++---------+------------+----------+------+----------+---------+------------------+
+3 rows in set (0.00 sec)
+
+--------------
+INSERT INTO doctor VALUES ('TT80','Johnny', 'Sins','2000-05-17', '1979-12-03','ABC','ENT')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO patient VALUES ('746582967','Brad','Pitt','1963-12-18')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO looksafter VALUES ('TT80','746582967')
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+INSERT INTO hospital VALUES ('BTO','Lions Gate', 'Vancouver', 'BC', 268, 'TT80', '2022-10-15')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM doctor WHERE licensenum = 'TT80'
+--------------
+
++------------+-----------+----------+-------------+------------+------------+------------+
+| licensenum | firstname | lastname | licensedate | birthdate  | hosworksat | speciality |
++------------+-----------+----------+-------------+------------+------------+------------+
+| TT80       | Johnny    | Sins     | 2000-05-17  | 1979-12-03 | ABC        | ENT        |
++------------+-----------+----------+-------------+------------+------------+------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT * FROM patient WHERE firstname = 'Brad' AND lastname = 'Pitt'
+--------------
+
++-----------+-----------+----------+------------+
+| ohipnum   | firstname | lastname | birthdate  |
++-----------+-----------+----------+------------+
+| 746582967 | Brad      | Pitt     | 1963-12-18 |
++-----------+-----------+----------+------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT * FROM looksafter WHERE licensenum = 'TT80'
+--------------
+
++------------+-----------+
+| licensenum | ohipnum   |
++------------+-----------+
+| TT80       | 746582967 |
++------------+-----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT * FROM hospital WHERE hoscode = 'BTO'
+--------------
+
++---------+------------+-----------+------+----------+---------+------------------+
+| hoscode | hosname    | city      | prov | numofbed | headdoc | headdocstartdate |
++---------+------------+-----------+------+----------+---------+------------------+
+| BTO     | Lions Gate | Vancouver | BC   |      268 | TT80    | 2022-10-15       |
++---------+------------+-----------+------+----------+---------+------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT lastname FROM patient
+--------------
+
++----------+
+| lastname |
++----------+
+| Geller   |
+| Bing     |
+| Green    |
+| Geller   |
+| Geller   |
+| Bing     |
+| Pitt     |
++----------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT DISTINCT lastname FROM patient
+--------------
+
++----------+
+| lastname |
++----------+
+| Geller   |
+| Bing     |
+| Green    |
+| Pitt     |
++----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM doctor ORDER BY lastname ASC
+--------------
+
++------------+-----------+------------+-------------+------------+------------+------------+
+| licensenum | firstname | lastname   | licensedate | birthdate  | hosworksat | speciality |
++------------+-----------+------------+-------------+------------+------------+------------+
+| SE66       | Colleen   | Aziz       | 1989-08-24  | 1999-01-26 | ABC        | Surgeon    |
+| HT45       | Ross      | Clooney    | 1987-06-20  | 1940-06-22 | DDE        | Surgeon    |
+| RD34       | Bernie    | Kavorikian | 1980-09-09  | 1930-06-11 | BBC        | Urologist  |
+| GD56       | Joey      | Shabado    | 1960-06-24  | 1969-06-24 | BBC        | Podiatrist |
+| TT80       | Johnny    | Sins       | 2000-05-17  | 1979-12-03 | ABC        | ENT        |
+| YT67       | Ben       | Spock      | 1955-02-20  | 1930-06-11 | DDE        | Urologist  |
+| JK78       | Mandy     | Webster    | 1990-09-08  | 1969-10-11 | BBC        | Surgeon    |
++------------+-----------+------------+-------------+------------+------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT hosname, hoscode FROM hospital WHERE numofbed > 1500
+--------------
+
++----------+---------+
+| hosname  | hoscode |
++----------+---------+
+| Victoria | ABC     |
++----------+---------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT firstname, lastname FROM doctor where hosworksat = (SELECT hoscode FROM hospital WHERE hosname = 'St. Joseph')
+--------------
+
++-----------+------------+
+| firstname | lastname   |
++-----------+------------+
+| Joey      | Shabado    |
+| Mandy     | Webster    |
+| Bernie    | Kavorikian |
++-----------+------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT firstname, lastname FROM patient WHERE lastname LIKE 'G%'
+--------------
+
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| Monica    | Geller   |
+| Rachel    | Green    |
+| Chandler  | Geller   |
+| Ross      | Geller   |
++-----------+----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT firstname, lastname FROM patient WHERE ohipnum IN (SELECT ohipnum FROM looksafter WHERE licensenum = (SELECT licensenum FROM doctor WHERE lastname = 'Webster'))
+--------------
+
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| Rachel    | Green    |
+| Joey      | Bing     |
++-----------+----------+
+2 rows in set (0.00 sec)
+
+--------------
+SELECT hosname, city, lastname FROM hospital, doctor WHERE headdoc = licensenum
+--------------
+
++------------+-----------+----------+
+| hosname    | city      | lastname |
++------------+-----------+----------+
+| Victoria   | London    | Aziz     |
+| St. Joseph | London    | Shabado  |
+| Lions Gate | Vancouver | Sins     |
+| Victoria   | Victoria  | Spock    |
++------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT SUM(numofbed) FROM hospital
+--------------
+
++---------------+
+| SUM(numofbed) |
++---------------+
+|          4068 |
++---------------+
+1 row in set (0.00 sec)
+
+ERROR 1054 (42S22) at line 75: Unknown column 'hospital.headoc' in 'where clause'
+--------------
+SELECT patient.firstname, patient.lastname, doctor.firstname, doctor.lastname, doctor.licensenum, patient.ohipnum FROM patient, doctor, looksafter, hospital WHERE patient.ohipnum = looksafter.ohipnum AND doctor.licensenum = looksafter.licensenum AND doctor.licensenum = hospital.headoc
+--------------
+
+--------------
+SELECT firstname, lastname, prov FROM doctor, hospital WHERE speciality = 'Surgeon' AND hosworksat IN (SELECT hoscode FROM hospital WHERE hosname = 'Victoria') AND hosworksat = hoscode
+--------------
+
++-----------+----------+------+
+| firstname | lastname | prov |
++-----------+----------+------+
+| Colleen   | Aziz     | ON   |
+| Ross      | Clooney  | BC   |
++-----------+----------+------+
+2 rows in set (0.00 sec)
+
+--------------
+SELECT firstname from doctor WHERE licensenum NOT IN (SELECT DISTINCT licensenum FROM looksafter)
+--------------
+
++-----------+
+| firstname |
++-----------+
+| Bernie    |
++-----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT firstname, lastname FROM doctor, hospital WHERE doctor.licensenum = hospital.headdoc AND NOT doctor.hosworksat = hospital.hoscode
+--------------
+
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| Johnny    | Sins     |
++-----------+----------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT firstname, lastname FROM doctor, hospital WHERE doctor.licensenum = hospital.headdoc AND headdocstartdate < '2012-01-01'
+--------------
+
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| Colleen   | Aziz     |
+| Joey      | Shabado  |
+| Ben       | Spock    |
++-----------+----------+
+3 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW of_your_choice AS SELECT doctor.firstname AS dfname, doctor.lastname as dlname, doctor.birthdate as dbday, patient.firstname AS pfname, patient.lastname as plname, patient.birthdate as pbday FROM doctor, patient, looksafter WHERE patient.ohipnum = looksafter.ohipnum AND doctor.licensenum = looksafter.licensenum
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+SELECT * FROM of_your_choice
+--------------
+
++---------+---------+------------+----------+--------+------------+
+| dfname  | dlname  | dbday      | pfname   | plname | pbday      |
++---------+---------+------------+----------+--------+------------+
+| Joey    | Shabado | 1969-06-24 | Monica   | Geller | 1964-05-12 |
+| Joey    | Shabado | 1969-06-24 | Chandler | Geller | 1970-06-11 |
+| Joey    | Shabado | 1969-06-24 | Joey     | Bing   | 1971-06-20 |
+| Ross    | Clooney | 1940-06-22 | Ross     | Geller | 1967-08-12 |
+| Mandy   | Webster | 1969-10-11 | Rachel   | Green  | 1962-09-17 |
+| Mandy   | Webster | 1969-10-11 | Joey     | Bing   | 1971-06-20 |
+| Colleen | Aziz    | 1999-01-26 | Rachel   | Green  | 1962-09-17 |
+| Johnny  | Sins    | 1979-12-03 | Brad     | Pitt   | 1963-12-18 |
+| Ben     | Spock   | 1930-06-11 | Phoebe   | Bing   | 1959-12-24 |
+| Ben     | Spock   | 1930-06-11 | Rachel   | Green  | 1962-09-17 |
++---------+---------+------------+----------+--------+------------+
+10 rows in set (0.00 sec)
+
+--------------
+SELECT dlname, dbday, plname, pbday FROM of_your_choice WHERE dbday > pbday
+--------------
+
++---------+------------+--------+------------+
+| dlname  | dbday      | plname | pbday      |
++---------+------------+--------+------------+
+| Shabado | 1969-06-24 | Geller | 1964-05-12 |
+| Webster | 1969-10-11 | Green  | 1962-09-17 |
+| Aziz    | 1999-01-26 | Green  | 1962-09-17 |
+| Sins    | 1979-12-03 | Pitt   | 1963-12-18 |
++---------+------------+--------+------------+
+4 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM patient
+--------------
+
++-----------+-----------+----------+------------+
+| ohipnum   | firstname | lastname | birthdate  |
++-----------+-----------+----------+------------+
+| 110112113 | Monica    | Geller   | 1964-05-12 |
+| 111222111 | Phoebe    | Bing     | 1959-12-24 |
+| 111222333 | Rachel    | Green    | 1962-09-17 |
+| 333444555 | Chandler  | Geller   | 1970-06-11 |
+| 444555666 | Ross      | Geller   | 1967-08-12 |
+| 667766777 | Joey      | Bing     | 1971-06-20 |
+| 746582967 | Brad      | Pitt     | 1963-12-18 |
++-----------+-----------+----------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM looksafter
+--------------
+
++------------+-----------+
+| licensenum | ohipnum   |
++------------+-----------+
+| GD56       | 110112113 |
+| YT67       | 111222111 |
+| JK78       | 111222333 |
+| SE66       | 111222333 |
+| YT67       | 111222333 |
+| GD56       | 333444555 |
+| HT45       | 444555666 |
+| GD56       | 667766777 |
+| JK78       | 667766777 |
+| TT80       | 746582967 |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+--------------
+DELETE FROM patient WHERE firstname = 'Brad' AND lastname = 'Pitt'
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+SELECT * FROM patient WHERE firstname = 'Brad' AND lastname = 'Pitt'
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+SELECT * FROM looksafter WHERE ohipnum = '746582967'
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+SELECT * FROM doctor
+--------------
+
++------------+-----------+------------+-------------+------------+------------+------------+
+| licensenum | firstname | lastname   | licensedate | birthdate  | hosworksat | speciality |
++------------+-----------+------------+-------------+------------+------------+------------+
+| GD56       | Joey      | Shabado    | 1960-06-24  | 1969-06-24 | BBC        | Podiatrist |
+| HT45       | Ross      | Clooney    | 1987-06-20  | 1940-06-22 | DDE        | Surgeon    |
+| JK78       | Mandy     | Webster    | 1990-09-08  | 1969-10-11 | BBC        | Surgeon    |
+| RD34       | Bernie    | Kavorikian | 1980-09-09  | 1930-06-11 | BBC        | Urologist  |
+| SE66       | Colleen   | Aziz       | 1989-08-24  | 1999-01-26 | ABC        | Surgeon    |
+| TT80       | Johnny    | Sins       | 2000-05-17  | 1979-12-03 | ABC        | ENT        |
+| YT67       | Ben       | Spock      | 1955-02-20  | 1930-06-11 | DDE        | Urologist  |
++------------+-----------+------------+-------------+------------+------------+------------+
+7 rows in set (0.00 sec)
+
+ERROR 1054 (42S22) at line 123: Unknown column 'firsname' in 'where clause'
+--------------
+DELETE FROM doctor WHERE firsname = 'Bernie'
+--------------
+
+--------------
+SELECT * FROM doctor WHERE firstname = 'Bernie'
+--------------
+
++------------+-----------+------------+-------------+------------+------------+------------+
+| licensenum | firstname | lastname   | licensedate | birthdate  | hosworksat | speciality |
++------------+-----------+------------+-------------+------------+------------+------------+
+| RD34       | Bernie    | Kavorikian | 1980-09-09  | 1930-06-11 | BBC        | Urologist  |
++------------+-----------+------------+-------------+------------+------------+------------+
+1 row in set (0.00 sec)
+
+ERROR 1451 (23000) at line 129: Cannot delete or update a parent row: a foreign key constraint fails (`assign2db`.`hospital`, CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`headdoc`) REFERENCES `doctor` (`licensenum`))
+--------------
+DELETE FROM doctor WHERE firstname = 'Johnny' AND lastname = 'Sins'
+--------------
+
+Bye
