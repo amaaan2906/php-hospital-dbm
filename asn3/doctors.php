@@ -82,7 +82,7 @@
         $special = $_POST['special'] ?? '';
         $query2 = "SELECT * FROM doctor WHERE speciality LIKE \"%" . $special . "\" ORDER BY " . $sortby . " " . $sortOrder . ";";
         $result2 = mysqli_query($connection,$query2);
-        if (!$resul2) {
+        if (!$result2) {
           die("databases query failed.");
         }
         while ($row = mysqli_fetch_assoc($result2)) {
