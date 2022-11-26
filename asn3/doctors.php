@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hospital Database - Doctors</title>
+  <link rel="stylesheet" href="style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
@@ -13,8 +14,8 @@
   ?>
   <h1>Doctors</h1>
   <hr>
-  <form action="doctors.php" method="post" enctype="multipart/form-data">
-    <div class="filter__sort" style="outline: 1px solid red;">
+  <form action="doctors.php" method="post" enctype="multipart/form-data" class="filter d-flex flex-row justify-content-evenly align-items-center">
+    <div class="filter__sort w-25">
       <p>Sort by:</p>
       <div class="form-check">
         <input class="form-check-input" value="lastname" type="radio" name="sort" id="sort-lastname" checked>
@@ -28,8 +29,11 @@
           Birthday
         </label>
       </div>
+      <?php
+        echo "<p>Current: " . $_POST['sort'] . "</p>"
+      ?>
     </div>
-    <div class="filter__order" style="outline: 1px solid blue;">
+    <div class="filter__order w-25">
       <p>Order by:</p>
       <div class="form-check">
         <input class="form-check-input" value="ASC" type="radio" name="order" id="order-asc" checked>
@@ -43,8 +47,11 @@
           Descending
         </label>
       </div>
+      <?php
+        echo "<p>Current: " . $_POST['order'] . "</p>"
+      ?>
     </div>
-    <div class="filter__special" style="outline: 1px solid green;">
+    <div class="filter__special w-25">
       <p>Specialty: </p>
       <select class="form-select" id="special" name="special">
         <option value="" selected>Show all specialty </option>
@@ -59,8 +66,11 @@
           mysqli_free_result($result1);
         ?>
       </select>
+      <?php
+        echo "<p>Current: " . $_POST['special'] ?? 'All' . "</p>"
+      ?>
     </div>
-    <input type="submit" class="btn btn-primary">
+    <input type="submit" value="Apply" class="btn btn-primary">
   </form>
   <hr>
   <table class="table table-striped">
