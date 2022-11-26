@@ -36,7 +36,7 @@
           echo "<tr>";
           echo "<td>" . $row['firstname'] . "</td>";
           echo "<td>" . $row['lastname'] . "</td>";
-          echo "<td>" . $row['birthday'] . "</td>";
+          echo "<td>" . $row['birthdate'] . "</td>";
           echo "<td>" . $row['licensenum'] . "</td>";
           echo "<td>" . $row['licensedate'] . "</td>";
           echo "<td>" . $row['hosworksat'] . "</td>";
@@ -44,11 +44,6 @@
           echo "</tr>";
         }
       ?>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
     </tbody>
     
   </table>
