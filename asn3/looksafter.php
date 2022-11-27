@@ -85,7 +85,7 @@
     <!-- Current doc alert -->
     <?php
       if (isset($_POST['licensenum'])) {
-        echo "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">";
+        echo "<div class=\"alert alert-primary alert-dismissible fade show\" role=\"alert\">";
         echo "Showing patients under doctor " . $_POST['licensenum'];
         echo "</div>";
         unset($_SESSION['doctorpatient_message']);

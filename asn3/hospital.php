@@ -25,7 +25,7 @@
     <!-- Current doc alert -->
     <?php
       if (isset($_POST['hos'])) {
-        echo "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">";
+        echo "<div class=\"alert alert-primary alert-dismissible fade show\" role=\"alert\">";
         echo "Showing all data for hospital " . $_POST['hos'];
         echo "</div>";
       }
