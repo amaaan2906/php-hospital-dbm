@@ -16,7 +16,7 @@
   ?>
   <!-- Header on all pages -->
   <div class="header">
-    <h2 class="text-center my-auto">Hospital Database</h2>
+    <a class="h2 text-center my-auto" href="http://cs3319.gaul.csd.uwo.ca/vm269/a3panda/">Hospital Database</a>
   </div>
 
   <!-- Doctor-Patient -->
@@ -82,6 +82,16 @@
   <!-- View patients -->
   <form class="looksafter container mt-3" action="" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">View doctors patients</h3>
+    <!-- Current doc alert -->
+    <?php
+      if (isset($_POST['licensenum'])) {
+        echo "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">";
+        echo "Showing patients under doctor " . $_POST['licensenum'];
+        echo "</div>";
+        unset($_SESSION['doctorpatient_message']);
+        unset($_SESSION['doctorpatient_status']);
+      }
+    ?>
     <div class="row">
       <!-- Doctor select -->
       <div class="col">

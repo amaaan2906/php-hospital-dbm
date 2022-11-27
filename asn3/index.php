@@ -9,8 +9,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
+  <!-- Header on all pages -->
   <div class="header">
-    <h2>Hospital Database</h2>
+    <h2 class="text-center my-auto" href="http://cs3319.gaul.csd.uwo.ca/vm269/a3panda/">Hospital Database</h2>
   </div>
   <a class="btn btn-primary" href="./doctors.php" role="button">Doctors</a>
   <a class="btn btn-primary" href="./looksafter.php" role="button">Doctor-Patient</a>
