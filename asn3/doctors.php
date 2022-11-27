@@ -12,6 +12,7 @@
   <!-- Database connect -->
   <?php
     include 'connectdb.php';
+    session_start();
   ?>
   <!-- Header on all pages -->
   <div class="header">
@@ -22,8 +23,14 @@
     <span><a href="/">Home</a> / Doctor</span>
   </div>
   <!-- Add new doctor form -->
+  <?php
+    if (isset($_SESSION['newDoctor_message'])) {
+      echo $_SESSION['newDoctor_message'];
+      unset($_SESSION['newDoctor_message']);
+    }
+  ?>
   <form class="new container" action="newdoctor.php" method="post" enctype="multipart/form-data">
-    <div class="row">
+    <div class="row"> 
       <!-- firstname -->
       <div class="col input-group mb-3">
         <span class="input-group-text" id="new-firstname">First name</span>
@@ -120,6 +127,8 @@
     <input type="submit" value="Add doctor" class="btn btn-primary">
   </form>
   <hr>
+
+  <!-- Doctors table -->
   <form action="doctors.php" method="post" enctype="multipart/form-data" class="filter d-flex flex-row justify-content-evenly align-items-center">
     <div class="filter__sort w-25">
       <p>Sort by:</p>
@@ -173,7 +182,7 @@
         ?>
       </select>
       <?php
-        echo "<p>Current: " . $_POST['special'] ?? 'All' . "</p>"
+        echo "<p>Current: " . $_POST['special'] ?? "All" . "</p>"
       ?>
     </div>
     <input type="submit" value="Apply" class="btn btn-primary">
