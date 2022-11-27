@@ -116,7 +116,7 @@
     <br>
     <input type="submit" value="View patients" class="btn btn-primary">
   </form>
-  <table class="table table-striped">
+  <table class="container table table-striped">
     <thead>
       <tr>
         <th scope="col">OHIP number</th>
@@ -125,7 +125,7 @@
         <th scope="col">Birthdate</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
       <?php
         if (isset($_POST['licensenum'])) {
           $doc = $_POST['licensenum'];

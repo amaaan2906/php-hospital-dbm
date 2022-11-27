@@ -218,7 +218,7 @@
   <br>
   <!-- Doctor table with delete function -->
   <form action="deletedoctor.php" method="post" enctype="multipart/form-data">
-    <table class="table table-striped">
+    <table class="container table table-striped">
       <thead>
         <tr>
           <th scope="col">License number</th>
@@ -254,12 +254,6 @@
         ?>
       </tbody>
     </table>
-  </form>
-
-  <hr>
-
-  <!-- View patients -->
-  <form id="patients" class="patients" action="" method="post" enctype="multipart/form-data">
   </form>
 
   <div class="footer mt-3">
