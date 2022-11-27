@@ -126,6 +126,7 @@
               echo $row['hoscode'] . ": " . $row['hosname'];
               echo "</option>";
             }
+            mysqli_free_result($res);
           ?>
         </select>
       </div>
@@ -138,79 +139,73 @@
   <form class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor table</h3>
     <!-- Filters -->
-    <!-- Sort By -->
+    <?php
+      $sort = $_POST['sort'] ?? 'lastname';
+      $currSort = $_POST['sort'] == 'lastname' ? 'Last Name' : 'Birthdate';
+      $order = $_POST['order'] ?? 'ASC';
+      $currOrder = $_POST['order'] == 'ASC' ? 'Ascending' : 'Descending';
+      $special = $_POST['special'] ?? '';
+      $currSpecial = $_POST['special'] ?? 'All';
+    ?>
     <div class="row">
+      <!-- Sort By -->
       <div class="col">
         <span>Sort By</span>
-	<br>
+        <br>
         <input class="form-check-input" value="lastname" type="radio" name="sort" id="sort-lastname" checked>
         <label class="form-check-label" for="sort-lastname">
           Last Name
         </label>
-	<br>
+        <br>
         <input class="form-check-input" value="birthdate" type="radio" name="sort" id="sort-birthday">
         <label class="form-check-label" for="sort-birthday">
           Birthday
         </label>
+        <br>
+        <?php
+          echo "<span>Current: " . $currSort . "</span>"
+        ?>
       </div>
-    </div>
-  </form>
-  <!-- Doctors table -->
-  <form action="doctors.php" method="post" enctype="multipart/form-data" class="filter d-flex flex-row justify-content-evenly align-items-center">
-    <div class="filter__sort w-25">
-      <p>Sort by:</p>
-      <div class="form-check">
-        <input class="form-check-input" value="lastname" type="radio" name="sort" id="sort-lastname" checked>
-        <label class="form-check-label" for="sort-lastname">
-          Last Name
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" value="birthdate" type="radio" name="sort" id="sort-birthday">
-        <label class="form-check-label" for="sort-birthday">
-          Birthday
-        </label>
-      </div>
-      <?php
-        echo "<p>Current: " . $_POST['sort'] . "</p>"
-      ?>
-    </div>
-    <div class="filter__order w-25">
-      <p>Order by:</p>
-      <div class="form-check">
+      <!-- Order By -->
+      <div class="col">
+        <span>Order By</span>
+        <br>
         <input class="form-check-input" value="ASC" type="radio" name="order" id="order-asc" checked>
         <label class="form-check-label" for="order-asc">
           Ascending
         </label>
-      </div>
-      <div class="form-check">
+        <br>
         <input class="form-check-input" value="DESC" type="radio" name="order" id="order-desc">
         <label class="form-check-label" for="order-desc">
           Descending
         </label>
-      </div>
-      <?php
-        echo "<p>Current: " . $_POST['order'] . "</p>"
-      ?>
-    </div>
-    <div class="filter__special w-25">
-      <p>Specialty: </p>
-      <select class="form-select" id="special" name="special">
-        <option value="" selected>Show all specialty</option>
+        <br>
         <?php
-          $query1 = "SELECT DISTINCT speciality FROM doctor ORDER BY speciality ASC;";
-          $result1 = mysqli_query($connection,$query1);
-          while ($row = mysqli_fetch_assoc($result1)) {
-            echo "<option value=\"" . $row['speciality'] . "\">";
-            echo $row['speciality'];
-            echo "</option>";
-          }
-          mysqli_free_result($result1);
+          echo "<span>Current: " . $currOrder . "</span>"
         ?>
-      </select>
-      <?php
-        echo "<p>Current: " . $_POST['special'] ?? "All" . "</p>"
-      ?>
+      </div>
+      <!-- Specialty -->
+      <div class="col">
+        <span>Specialty</span>
+        <br>
+        <select class="form-select" id="special" name="special">
+          <option value="" selected>Show all</option>
+            <?php
+              $specQuery = "SELECT DISTINCT speciality FROM doctor ORDER BY speciality ASC;";
+              $res = mysqli_query($connection,$specQuery);
+              while ($row = mysqli_fetch_assoc($res)) {
+                echo "<option value=\"" . $row['speciality'] . "\">";
+                echo $row['speciality'];
+                echo "</option>";
+              }
+              mysqli_free_result($res);
+            ?>
+        </select>
+        <br>
+        <?php
+          echo "<span>Current: " . $currSpecial . "</span>"
+        ?>
+      </div>
     </div>
     <input type="submit" value="Apply" class="btn btn-primary">
   </form>
@@ -229,15 +224,12 @@
     </thead>
     <tbody>
       <?php
-        $sortby = $_POST['sort'] ?? 'lastname';
-        $sortOrder = $_POST['order'] ?? 'ASC'; // ASC DESC
-        $special = $_POST['special'] ?? '';
-        $query2 = "SELECT * FROM doctor WHERE speciality LIKE \"%" . $special . "\" ORDER BY " . $sortby . " " . $sortOrder . ";";
-        $result2 = mysqli_query($connection,$query2);
-        if (!$result2) {
+        $tableQuery = "SELECT * FROM doctor WHERE speciality LIKE \"%" . $special . "\" ORDER BY " . $sort . " " . $order . ";";
+        $res = mysqli_query($connection, $tableQuery);
+        if (!$res) {
           die("databases query failed.");
         }
-        while ($row = mysqli_fetch_assoc($result2)) {
+        while ($row = mysqli_fetch_assoc($res)) {
           echo "<tr>";
           echo "<td>" . $row['licensenum'] . "</td>";
           echo "<td>" . $row['firstname'] . "</td>";
@@ -248,7 +240,7 @@
           echo "<td>" . $row['speciality'] . "</td>";
           echo "</tr>";
         }
-        mysqli_free_result($result2);
+        mysqli_free_result($res);
       ?>
     </tbody>
   </table>
