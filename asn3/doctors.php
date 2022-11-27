@@ -20,7 +20,7 @@
   </div>
   <!-- Show routes -->
   <div class="nav p-3">
-    <span><a href="/">Home</a> / Doctor</span>
+    <span><a href="/vm269/a3panda">Home</a> / Doctor</span>
   </div>
   <!-- Add new doctor form -->
   <form class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
@@ -140,12 +140,13 @@
     <h3 class="pb-1">Doctor table</h3>
     <!-- Filters -->
     <?php
-      $sort = $_POST['sort'] ?? 'lastname';
-      $currSort = $_POST['sort'] == 'lastname' ? 'Last Name' : 'Birthdate';
-      $order = $_POST['order'] ?? 'ASC';
-      $currOrder = $_POST['order'] == 'ASC' ? 'Ascending' : 'Descending';
+      $sort = $_POST['sort'] ?? "lastname";;
+      $currSort = $sort === "lastname" ? 'Last Name' : 'Birthdate';
+      $order = $_POST['order'] ?? "ASC";
+      $currOrder = $order === "ASC" ? 'Ascending' : 'Descending';
       $special = $_POST['special'] ?? '';
-      $currSpecial = $_POST['special'] ?? 'All';
+      $currSpecial = $special === "" ? 'All' : $special;;
+      echo $currSpecial;
     ?>
     <div class="row">
       <!-- Sort By -->
@@ -159,7 +160,7 @@
         <br>
         <input class="form-check-input" value="birthdate" type="radio" name="sort" id="sort-birthday">
         <label class="form-check-label" for="sort-birthday">
-          Birthday
+          Birthdate
         </label>
         <br>
         <?php
@@ -201,15 +202,15 @@
               mysqli_free_result($res);
             ?>
         </select>
-        <br>
         <?php
           echo "<span>Current: " . $currSpecial . "</span>"
         ?>
       </div>
     </div>
+    <br>
     <input type="submit" value="Apply" class="btn btn-primary">
   </form>
-  <hr>
+  <br>
   <table class="table table-striped">
     <thead>
       <tr>
