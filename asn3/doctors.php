@@ -26,6 +26,7 @@
   <form class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Add new doctor</h3>
     <!-- Add alert -->
+    <!-- new doctor -->
     <?php
       if (isset($_SESSION['newDoctor_message'])) {
         echo "<div class=\"alert alert-" . $_SESSION['newDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
@@ -34,6 +35,17 @@
         echo "</div>";
         unset($_SESSION['newDoctor_message']);
         unset($_SESSION['newDoctor_status']);
+      }
+    ?>
+    <!-- delete doctor -->
+    <?php
+      if (isset($_SESSION['deleteDoctor_message'])) {
+        echo "<div class=\"alert alert-" . $_SESSION['deleteDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
+        echo $_SESSION['deleteDoctor_message'];
+        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+        echo "</div>";
+        unset($_SESSION['deleteDoctor_message']);
+        unset($_SESSION['deleteDoctor_status']);
       }
     ?>
     <div class="row"> 
