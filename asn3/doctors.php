@@ -261,6 +261,24 @@
   <!-- Doctor-Patient -->
   <form class="doctorpatient container mt-3" action="doctorpatient.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor-Patient relationship</h3>
+    <!-- Assign alert -->
+    <?php
+      if (isset($_SESSION['doctorpatient_message'])) {
+        echo "<div class=\"alert alert-" . $_SESSION['doctorpatient_status'] . " alert-dismissible fade show\" role=\"alert\">";
+        echo $_SESSION['doctorpatient_message'];
+        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+        echo "</div>";
+        unset($_SESSION['doctorpatient_message']);
+        unset($_SESSION['doctorpatient_status']);
+      }
+
+      $sort = $_POST['sort'] ?? "lastname";;
+      $currSort = $sort === "lastname" ? 'Last Name' : 'Birthdate';
+      $order = $_POST['order'] ?? "ASC";
+      $currOrder = $order === "ASC" ? 'Ascending' : 'Descending';
+      $special = $_POST['special'] ?? '';
+      $currSpecial = $special === "" ? 'All' : $special;
+    ?>
     <div class="row">
       <!-- doctor -->
       <div class="col">
