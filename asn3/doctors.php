@@ -138,14 +138,19 @@
   <form class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor table</h3>
     <!-- Filters -->
-    <p>Filters</p>
     <!-- Sort By -->
     <div class="row">
       <div class="col">
-        <p>Sort By</p>
+        <span>Sort By</span>
+	<br>
         <input class="form-check-input" value="lastname" type="radio" name="sort" id="sort-lastname" checked>
         <label class="form-check-label" for="sort-lastname">
           Last Name
+        </label>
+	<br>
+        <input class="form-check-input" value="birthdate" type="radio" name="sort" id="sort-birthday">
+        <label class="form-check-label" for="sort-birthday">
+          Birthday
         </label>
       </div>
     </div>
