@@ -20,10 +20,19 @@
   </div>
 
   <!-- View hospital data -->
-  <form class="hospital container mt=3" action="" method="post" enctype="multipart/form-data">
-    <div class="row">
+  <form class="hospital container mt-3" action="" method="post" enctype="multipart/form-data">
+    <h3 class="pb-1">Hospital Data</h3>
+    <!-- Current doc alert -->
+    <?php
+      if (isset($_POST['hos'])) {
+        echo "<div class=\"alert alert-success alert-dismissible fade show\" role=\"alert\">";
+        echo "Showing all data for hospital " . $_POST['hos'];
+        echo "</div>";
+      }
+    ?>
+    <div class="row justify-content-start">
       <!-- hospital -->
-      <div class="col-8">
+      <div class="col-4">
         <select required class="form-select" name="hos">
           <option selected disabled><strong>Select hospital</strong></option>
           <?php
@@ -41,12 +50,13 @@
           ?>
         </select>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <input type="submit" value="View info" class="btn btn-primary">
       </div>
     </div>
-
   </form>
+  <div class="data container mt-3">
+  </div>
 
   <hr>
 
