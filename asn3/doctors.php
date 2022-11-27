@@ -258,74 +258,8 @@
 
   <hr>
 
-  <!-- Doctor-Patient -->
-  <form id="doctorpatient" class="doctorpatient container mt-3" action="doctorpatient.php" method="post" enctype="multipart/form-data">
-    <h3 class="pb-1">Doctor-Patient relationship</h3>
-    <!-- Assign alert -->
-    <?php
-      if (isset($_SESSION['doctorpatient_message'])) {
-        echo "<div class=\"alert alert-" . $_SESSION['doctorpatient_status'] . " alert-dismissible fade show\" role=\"alert\">";
-        echo $_SESSION['doctorpatient_message'];
-        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
-        echo "</div>";
-        unset($_SESSION['doctorpatient_message']);
-        unset($_SESSION['doctorpatient_status']);
-      }
-
-      $sort = $_POST['sort'] ?? "lastname";;
-      $currSort = $sort === "lastname" ? 'Last Name' : 'Birthdate';
-      $order = $_POST['order'] ?? "ASC";
-      $currOrder = $order === "ASC" ? 'Ascending' : 'Descending';
-      $special = $_POST['special'] ?? '';
-      $currSpecial = $special === "" ? 'All' : $special;
-    ?>
-    <div class="row">
-      <!-- doctor -->
-      <div class="col">
-        <select required class="form-select" name="licensenum">
-          <option selected disabled><strong>Select a doctor</strong></option>
-          <?php
-            $docQuery = "SELECT licensenum, firstname, lastname FROM doctor;";
-            $res = mysqli_query($connection, $docQuery);
-            if (!$res) {
-              die("database query failed.");
-            }
-            while ($row = mysqli_fetch_assoc($res)) {
-              echo "<option value=\"" . $row['licensenum'] . "\">";
-              echo $row['licensenum'] . " - " . $row['firstname'] . " " . $row['lastname'];
-              echo "</option>";
-            }
-            mysqli_free_result($res);
-          ?>
-        </select>
-      </div>
-      <!-- patient -->
-      <div class="col">
-        <select required class="form-select" name="ohipnum">
-          <option selected disabled><strong>Select a patient</strong></option>
-          <?php
-            $patQuery = "SELECT ohipnum, firstname, lastname FROM patient;";
-            $res = mysqli_query($connection, $patQuery);
-            if (!$res) {
-              die("database query failed.");
-            }
-            while ($row = mysqli_fetch_assoc($res)) {
-              echo "<option value=\"" . $row['ohipnum'] . "\">";
-              echo $row['ohipnum'] . " - " . $row['firstname'] . " " . $row['lastname'];
-              echo "</option>";
-            }
-            mysqli_free_result($res);
-          ?>
-        </select>
-      </div>
-    </div>
-    <br>
-    <input type="submit" value="Assign" class="btn btn-primary">
-  </form>
-
-  <hr>
-
-  <form>
+  <!-- View patients -->
+  <form id="patients" class="patients" action="" method="post" enctype="multipart/form-data">
   </form>
 
   <div class="footer mt-3">

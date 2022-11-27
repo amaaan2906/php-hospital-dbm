@@ -19,7 +19,7 @@
       $_SESSION['doctorpatient_message'] = "Doctor assigned to patient successfully!";
     }
   }
-
-  header('Location: doctors.php#doctorpatient');
+  mysqli_close($connection);
+  header('Location: looksafter.php#doctorpatient');
   exit;
 ?>

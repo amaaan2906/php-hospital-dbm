@@ -32,6 +32,7 @@
       }
     }
   }
+  mysqli_close($connection);
   header('Location: doctors.php#new');
   exit;
 ?>

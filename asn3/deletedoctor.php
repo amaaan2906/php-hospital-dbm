@@ -26,7 +26,7 @@
       mysqli_free_result($res);
     }
   }
-
+  mysqli_close($connection);
   header('Location: doctors.php#filter');
   exit;
 ?>
