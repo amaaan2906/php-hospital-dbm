@@ -25,6 +25,7 @@
   <!-- Add new doctor form -->
   <form class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Add new doctor</h3>
+    <!-- Add alert -->
     <?php
       if (isset($_SESSION['newDoctor_message'])) {
         echo "<div class=\"alert alert-" . $_SESSION['newDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
@@ -87,7 +88,7 @@
       </div>
       <!-- licensedate -->
       <div class="col input-group mb-3">
-        <span class="input-group-text" id="new-licensedate">License Number</span>
+        <span class="input-group-text" id="new-licensedate">License Date</span>
         <input
           required
           type="date" 
@@ -107,13 +108,13 @@
           class="form-control" 
           aria-describedby="new-speciality"
           name="speciality"
-          placeholder="AA00"
+          placeholder="eg: Surgeon"
         >
       </div>
       <!-- Hospital -->
       <div class="col">
         <select required class="form-select" name="hosworksat">
-          <option selected disabled>Hospital</option>
+          <option selected disabled><strong>Hospital</strong></option>
           <?php
             $hosQuery = "SELECT hoscode, hosname FROM hospital;";
             $res = mysqli_query($connection,$hosQuery);
@@ -131,8 +132,24 @@
     </div>
     <input type="submit" value="Add doctor" class="btn btn-primary">
   </form>
+  
   <hr>
 
+  <form class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
+    <h3 class="pb-1">Doctor table</h3>
+    <!-- Filters -->
+    <p>Filters</p>
+    <!-- Sort By -->
+    <div class="row">
+      <div class="col">
+        <p>Sort By</p>
+        <input class="form-check-input" value="lastname" type="radio" name="sort" id="sort-lastname" checked>
+        <label class="form-check-label" for="sort-lastname">
+          Last Name
+        </label>
+      </div>
+    </div>
+  </form>
   <!-- Doctors table -->
   <form action="doctors.php" method="post" enctype="multipart/form-data" class="filter d-flex flex-row justify-content-evenly align-items-center">
     <div class="filter__sort w-25">
