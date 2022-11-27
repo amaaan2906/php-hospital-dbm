@@ -240,7 +240,7 @@
             echo "<td>" . $row['licensedate'] . "</td>";
             echo "<td>" . $row['hosworksat'] . "</td>";
             echo "<td>" . $row['speciality'] . "</td>";
-            echo "<td><input type=\"submit\" value=\"X\" class=\"btn btn-primary\" name=\"" . $row['licensenum'] . "\"></td>";
+            echo "<td><input onclick=\"return confirm('Are you sure you want to do that?');\" type=\"submit\" value=\"X\" class=\"btn btn-primary\" name=\"" . $row['licensenum'] . "\"></td>";
             echo "</tr>";
           }
           mysqli_free_result($res);
