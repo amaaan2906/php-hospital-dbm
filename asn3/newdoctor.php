@@ -10,6 +10,11 @@
   $speciality = $_POST['speciality'];
   $hosworksat = $_POST['hosworksat'];
 
+  licensenumLen = strlen($licensenum);
+  if (strlen($licensenum != 4) {
+    $_SESSION['newDoctor_status'] = "warning";
+  }
+
   $licensenumCheckQuery = "SELECT * FROM doctor WHERE licensenum LIKE \"%" . $licensenum .  "\";";
   $numRows = mysqli_num_rows(mysqli_query($connection, $licensenumCheckQuery));
   if ($numRows > 0) {
