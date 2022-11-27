@@ -36,6 +36,16 @@
         unset($_SESSION['newDoctor_status']);
       }
     ?>
+    <?php
+      if (isset($_SESSION['deleteDoctor_message'])) {
+        echo "<div class=\"alert alert-" . $_SESSION['deleteDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
+        echo $_SESSION['deleteDoctor_message'];
+        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+        echo "</div>";
+        unset($_SESSION['deleteDoctor_message']);
+        unset($_SESSION['deleteDoctor_status']);
+      }
+    ?>
     <div class="row"> 
       <!-- firstname -->
       <div class="col input-group mb-3">
