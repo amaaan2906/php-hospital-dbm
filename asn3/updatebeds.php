@@ -1,5 +1,6 @@
 <?php
   include "connectdb.php";
+  session_start();
 
   $hos = $_POST['hos'];
   $num = $_POST['beds'];
@@ -15,6 +16,6 @@
   }
 
   mysqli_close($connection);
-  header('Locaiton: hospital.php#beds');
+  header('Location: hospital.php#beds');
   exit;
 ?>

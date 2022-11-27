@@ -35,7 +35,7 @@
     ?>
     <div class="row">
       <!-- hospital -->
-      <div class="col-2">
+      <div class="col-6">
         <select required class="form-select" name="hos">
           <option selected disabled><strong>Select hospital</strong></option>
           <?php
@@ -54,7 +54,7 @@
         </select>
       </div>
       <!-- bed count -->
-      <div class="col-2 input-group">
+      <div class="col-6 input-group w-50">
         <span class="input-group-text" id="beds-count">Number of beds</span>
         <input
           required
@@ -66,6 +66,8 @@
         >
       </div>
     </div>
+    <br>
+    <input type="submit" value="Update beds" class="btn btn-primary">
   </form>
 
   <div class="footer mt-3">
