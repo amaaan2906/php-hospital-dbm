@@ -19,7 +19,7 @@
     <a class="h2 text-center my-auto" href="http://cs3319.gaul.csd.uwo.ca/vm269/a3panda/">Hospital Database</a>
   </div>
 
-  <!-- View hospital data -->
+  <!-- select hospital -->
   <form class="hospital container mt-3" action="" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Hospital Data</h3>
     <!-- Current doc alert -->
@@ -55,7 +55,45 @@
       </div>
     </div>
   </form>
+  <!-- hospital data -->
   <div class="data container mt-3">
+    <?php
+      if (isset($_POST['hos'])) {
+        $hosQuery = "SELECT * FROM hospital, doctor WHERE licensenum=headdoc AND hoscode LIKE \"%" . $_POST['hos'] . "\";";
+        $docQuery = "SELECT firstname, lastname FROM doctor WHERE hosworksat LIKE \"%" . $_POST['hos'] . "\";";
+      }
+    ?>
+    <table class="container table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Name</th>
+          <th scope="col">Location</th>
+          <th scope="col">Num of beds</th>
+          <th scope="col">Head doctor</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <?php
+          if (isset($hosQuery)) {
+            $res = mysqli_query($connection, $hosQuery);
+            if (!$res) {
+              die("databases query failed.");
+            }
+            while ($row = mysqli_fetch_assoc($res)) {
+              echo "<tr>";
+              echo "<td>" . $row['hoscode'] . "</td>";
+              echo "<td>" . $row['hosname'] . "</td>";
+              echo "<td>" . $row['city'] . ", " . $row['prov'] . "</td>";
+              echo "<td>" . $row['numofbed'] . "</td>";
+              echo "<td>" . $row['firstname'] . " " . $row['lastname'] . "</td>";
+              echo "</tr>";
+            }
+            mysqli_free_result($res);
+          }
+        ?>
+      </tbody>
+    </table>
   </div>
 
   <hr>
