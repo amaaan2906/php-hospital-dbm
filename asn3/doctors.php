@@ -9,10 +9,116 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
+  <!-- Database connect -->
   <?php
     include 'connectdb.php';
   ?>
-  <h1>Doctors</h1>
+  <!-- Header on all pages -->
+  <div class="header">
+    <h2>Hospital Database</h2>
+  </div>
+  <!-- Show routes -->
+  <div class="nav p-3">
+    <span><a href="/">Home</a> / Doctor</span>
+  </div>
+  <!-- Add new doctor form -->
+  <form class="new container" action="newdoctor.php" method="post" enctype="multipart/form-data">
+    <div class="row">
+      <!-- firstname -->
+      <div class="col input-group mb-3">
+        <span class="input-group-text" id="new-firstname">First name</span>
+        <input
+          required
+          type="text" 
+          class="form-control" 
+          aria-describedby="new-firstname"
+          name="firstname"
+          placeholder="John"
+        >
+      </div>
+      <!-- lastname -->
+      <div class="col input-group mb-3">
+        <span class="input-group-text" id="new-lastname">Last name</span>
+        <input 
+          required
+          type="text" 
+          class="form-control" 
+          aria-describedby="new-lastname"
+          name="lastname"
+          placeholder="Doe"
+        >
+      </div>
+      <!-- birthdate -->
+      <div class="col input-group mb-3">
+        <span class="input-group-text" id="new-birthdate">Birthdate</span>
+        <input 
+          required
+          type="date" 
+          class="form-control" 
+          aria-describedby="new-birthdate"
+          name="birthdate"
+        >
+      </div>
+    </div>
+    <div class="row">
+      <!-- licensenum -->
+      <div class="col input-group mb-3">
+        <span class="input-group-text" id="new-licensenum">License Number</span>
+        <input
+          required
+          type="text" 
+          class="form-control" 
+          aria-describedby="new-licensenum"
+          name="licensenum"
+          placeholder="AA00"
+        >
+      </div>
+      <!-- licensedate -->
+      <div class="col input-group mb-3">
+        <span class="input-group-text" id="new-licensedate">License Number</span>
+        <input
+          required
+          type="date" 
+          class="form-control" 
+          aria-describedby="new-licensedate"
+          name="licensedate"
+        >
+      </div>
+    </div>
+    <div class="row">
+      <!-- Specialty -->
+      <div class="col input-group mb-3">
+        <span class="input-group-text" id="new-speciality">Specialty</span>
+        <input
+          required
+          type="text" 
+          class="form-control" 
+          aria-describedby="new-speciality"
+          name="speciality"
+          placeholder="AA00"
+        >
+      </div>
+      <!-- Hospital -->
+      <div class="col">
+        <select required class="form-select" name="hosworksat">
+          <option selected disabled>Hospital</option>
+          <?php
+            $hosQuery = "SELECT hoscode, hosname FROM hospital;";
+            $res = mysqli_query($connection,$hosQuery);
+            if (!$res) {
+              die("databases query failed.");
+            }
+            while ($row = mysqli_fetch_assoc($res)) {
+              echo "<option value=\"" . $row['hoscode'] . "\">";
+              echo $row['hoscode'] . ": " . $row['hosname'];
+              echo "</option>";
+            }
+          ?>
+        </select>
+      </div>
+    </div>
+    <input type="submit" value="Add doctor" class="btn btn-primary">
+  </form>
   <hr>
   <form action="doctors.php" method="post" enctype="multipart/form-data" class="filter d-flex flex-row justify-content-evenly align-items-center">
     <div class="filter__sort w-25">
@@ -54,7 +160,7 @@
     <div class="filter__special w-25">
       <p>Specialty: </p>
       <select class="form-select" id="special" name="special">
-        <option value="" selected>Show all specialty </option>
+        <option value="" selected>Show all specialty</option>
         <?php
           $query1 = "SELECT DISTINCT speciality FROM doctor ORDER BY speciality ASC;";
           $result1 = mysqli_query($connection,$query1);

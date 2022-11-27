@@ -1,3 +1,23 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.header {
+	width: 100vw;
+	height: 100px;
+	background-color: cadetblue;
+	color: white;
+	display: grid;
+	text-align: center;
+}
+
+.nav {
+	color: gray;
+	text-align: center;
+}
+
 .filter > input {
 	height: 50%;
 }
