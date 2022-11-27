@@ -36,16 +36,6 @@
         unset($_SESSION['newDoctor_status']);
       }
     ?>
-    <?php
-      if (isset($_SESSION['deleteDoctor_message'])) {
-        echo "<div class=\"alert alert-" . $_SESSION['deleteDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
-        echo $_SESSION['deleteDoctor_message'];
-        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
-        echo "</div>";
-        unset($_SESSION['deleteDoctor_message']);
-        unset($_SESSION['deleteDoctor_status']);
-      }
-    ?>
     <div class="row"> 
       <!-- firstname -->
       <div class="col input-group mb-3">
@@ -150,6 +140,15 @@
   <form class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor table</h3>
     <?php
+      if (isset($_SESSION['deleteDoctor_message'])) {
+        echo "<div class=\"alert alert-" . $_SESSION['deleteDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
+        echo $_SESSION['deleteDoctor_message'];
+        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+        echo "</div>";
+        unset($_SESSION['deleteDoctor_message']);
+        unset($_SESSION['deleteDoctor_status']);
+      }
+
       $sort = $_POST['sort'] ?? "lastname";;
       $currSort = $sort === "lastname" ? 'Last Name' : 'Birthdate';
       $order = $_POST['order'] ?? "ASC";
