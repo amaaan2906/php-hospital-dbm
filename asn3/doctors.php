@@ -26,7 +26,6 @@
   <form class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Add new doctor</h3>
     <!-- Add alert -->
-    <!-- new doctor -->
     <?php
       if (isset($_SESSION['newDoctor_message'])) {
         echo "<div class=\"alert alert-" . $_SESSION['newDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
@@ -35,17 +34,6 @@
         echo "</div>";
         unset($_SESSION['newDoctor_message']);
         unset($_SESSION['newDoctor_status']);
-      }
-    ?>
-    <!-- delete doctor -->
-    <?php
-      if (isset($_SESSION['deleteDoctor_message'])) {
-        echo "<div class=\"alert alert-" . $_SESSION['deleteDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
-        echo $_SESSION['deleteDoctor_message'];
-        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
-        echo "</div>";
-        unset($_SESSION['deleteDoctor_message']);
-        unset($_SESSION['deleteDoctor_status']);
       }
     ?>
     <div class="row"> 
@@ -148,9 +136,9 @@
   
   <hr>
 
+  <!-- Filters -->
   <form class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor table</h3>
-    <!-- Filters -->
     <?php
       $sort = $_POST['sort'] ?? "lastname";;
       $currSort = $sort === "lastname" ? 'Last Name' : 'Birthdate';
@@ -222,6 +210,7 @@
     <input type="submit" value="Apply" class="btn btn-primary">
   </form>
   <br>
+  <!-- Doctor table with delete function -->
   <form action="deletedoctor.php" method="post" enctype="multipart/form-data">
     <table class="table table-striped">
       <thead>
