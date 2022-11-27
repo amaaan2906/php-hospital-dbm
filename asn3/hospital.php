@@ -19,6 +19,55 @@
     <a class="h2 text-center my-auto" href="http://cs3319.gaul.csd.uwo.ca/vm269/a3panda/">Hospital Database</a>
   </div>
 
+  <!-- Update beds -->
+  <form id="beds" class="beds container mt-3" action="updatebeds.php" method="post" enctype="multipart/form-data">
+    <h3 class="pb-1">Update hospital bed count</h3>
+    <!-- Update alert -->
+    <?php
+      if (isset($_SESSION['setBeds_message'])) {
+        echo "<div class=\"alert alert-" . $_SESSION['setBeds_status'] . " alert-dismissible fade show\" role=\"alert\">";
+        echo $_SESSION['setBeds_message'];
+        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+        echo "</div>";
+        unset($_SESSION['setBeds_message']);
+        unset($_SESSION['setBeds_status']);
+      }
+    ?>
+    <div class="row">
+      <!-- hospital -->
+      <div class="col-2">
+        <select required class="form-select" name="hos">
+          <option selected disabled><strong>Select hospital</strong></option>
+          <?php
+            $hosQuery = "SELECT hoscode, hosname FROM hospital;";
+            $res = mysqli_query($connection, $hosQuery);
+            if (!$res) {
+              die("databases query failed.");
+            }
+            while ($row = mysqli_fetch_assoc($res)) {
+              echo "<option value=\"" . $row['hoscode'] . "\">";
+              echo $row['hoscode'] . ": " . $row['hosname'];
+              echo "</option>";
+            }
+            mysqli_free_result($res);
+          ?>
+        </select>
+      </div>
+      <!-- bed count -->
+      <div class="col-2 input-group">
+        <span class="input-group-text" id="beds-count">Number of beds</span>
+        <input
+          required
+          type="number" 
+          class="form-control" 
+          aria-describedby="beds-count"
+          name="beds"
+          placeholder="Number of beds"
+        >
+      </div>
+    </div>
+  </form>
+
   <div class="footer mt-3">
     <p class="text-center my-auto">48's head hurts from all the PHP 😫</p>
   </div>
