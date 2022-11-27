@@ -125,7 +125,7 @@
           }
           while ($row = mysqli_fetch_assoc($res)) {
             echo "<tr>";
-            echo "<td>" . $row['patient.ohipnum'] . "</td>";
+            echo "<td>" . $row['ohipnum'] . "</td>";
             echo "<td>" . $row['firstname'] . "</td>";
             echo "<td>" . $row['lastname'] . "</td>";
             echo "<td>" . $row['birthdate'] . "</td>";

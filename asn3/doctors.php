@@ -16,7 +16,7 @@
   ?>
   <!-- Header on all pages -->
   <div class="header">
-    <h2 class="text-center my-auto">Hospital Database</h2>
+    <a class="h2 text-center my-auto" href="http://cs3319.gaul.csd.uwo.ca/vm269/a3panda/">Hospital Database</a>
   </div>
   <!-- Add new doctor form -->
   <form id="new" class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
