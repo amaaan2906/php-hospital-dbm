@@ -25,7 +25,7 @@
       $insertQuery = 'INSERT INTO doctor (licensenum, firstname, lastname, licensedate, birthdate, hosworksat, speciality) VALUES ("' . $licensenum . '", "' . $first . '", "' . $last . '", "' . $licensedate . '", "' . $birthdate . '", "' . $hosworksat . '", "' . $speciality . '");';
       if (!mysqli_query($connection, $insertQuery)) {
         $_SESSION['newDoctor_status'] = "warning";
-        $_SESSION['newDoctor_message'] = "Error while trying to add new doctor" . mysqli_error($connection);
+        $_SESSION['newDoctor_message'] = "Error while trying to add new doctor: " . mysqli_error($connection);
       } else {
         $_SESSION['newDoctor_status'] = "success";
         $_SESSION['newDoctor_message'] = "Doctor " . $last . " added successfully!";

@@ -5,12 +5,12 @@
   $deleteKey = strval(array_keys($_POST)[0]);
   
   $checkHeadDocQuery = "SELECT * FROM hospital WHERE headdoc LIKE \"%" . $deleteKey . "\";";
-  if (mysqli_num_rows(mysqli_query($connection, $checkHeadDocQuery))) {
+  if (mysqli_num_rows(mysqli_query($connection, $checkHeadDocQuery)) > 0) {
     $_SESSION['deleteDoctor_status'] = "warning";
     $_SESSION['deleteDoctor_message'] = "Unable to delete a head doctor.";
   } else {
     $checkPatients = "SELECT * FROM looksafter WHERE licensenum LIKE \"%" . $deleteKey . "\";";
-    if (mysqli_num_rows(mysqli_query($connection, $checkPatients))) {
+    if (mysqli_num_rows(mysqli_query($connection, $checkPatients)) > 0) {
       $_SESSION['deleteDoctor_status'] = "warning";
       $_SESSION['deleteDoctor_message'] = "Unable to delete doctor currently treating a patient.";
     } else {
