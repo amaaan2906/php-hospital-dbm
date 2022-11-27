@@ -25,8 +25,12 @@
   <!-- Add new doctor form -->
   <?php
     if (isset($_SESSION['newDoctor_message'])) {
+      echo "<div class=\"alert alert-" . $_SESSION['newDoctor_status'] . " alert-dismissible fade show\" role=\"alert\">";
       echo $_SESSION['newDoctor_message'];
+      echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+      echo "</div>";
       unset($_SESSION['newDoctor_message']);
+      unset($_SESSION['newDoctor_status']);
     }
   ?>
   <form class="new container" action="newdoctor.php" method="post" enctype="multipart/form-data">

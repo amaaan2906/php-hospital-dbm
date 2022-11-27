@@ -13,8 +13,10 @@
   $licensenumCheckQuery = "SELECT * FROM doctor WHERE licensenum LIKE \"%" . $licensenum .  "\";";
   $numRows = mysqli_num_rows(mysqli_query($connection, $licensenumCheckQuery));
   if ($numRows > 0) {
+    $_SESSION['newDoctor_status'] = "warning";
     $_SESSION['newDoctor_message'] = "Doctor license number cannot be duplicated";
   } else {
+    $_SESSION['newDoctor_status'] = "success";
     $_SESSION['newDoctor_message'] = "Doctor " . $last . " added successfully!";
   }
   header('Location: doctors.php');
