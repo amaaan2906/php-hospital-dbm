@@ -145,8 +145,7 @@
       $order = $_POST['order'] ?? "ASC";
       $currOrder = $order === "ASC" ? 'Ascending' : 'Descending';
       $special = $_POST['special'] ?? '';
-      $currSpecial = $special === "" ? 'All' : $special;;
-      echo $currSpecial;
+      $currSpecial = $special === "" ? 'All' : $special;
     ?>
     <div class="row">
       <!-- Sort By -->
@@ -211,40 +210,44 @@
     <input type="submit" value="Apply" class="btn btn-primary">
   </form>
   <br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">License number</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Birthday</th>
-        <th scope="col">License date</th>
-        <th scope="col">Hospital</th>
-        <th scope="col">Specialty</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-        $tableQuery = "SELECT * FROM doctor WHERE speciality LIKE \"%" . $special . "\" ORDER BY " . $sort . " " . $order . ";";
-        $res = mysqli_query($connection, $tableQuery);
-        if (!$res) {
-          die("databases query failed.");
-        }
-        while ($row = mysqli_fetch_assoc($res)) {
-          echo "<tr>";
-          echo "<td>" . $row['licensenum'] . "</td>";
-          echo "<td>" . $row['firstname'] . "</td>";
-          echo "<td>" . $row['lastname'] . "</td>";
-          echo "<td>" . $row['birthdate'] . "</td>";
-          echo "<td>" . $row['licensedate'] . "</td>";
-          echo "<td>" . $row['hosworksat'] . "</td>";
-          echo "<td>" . $row['speciality'] . "</td>";
-          echo "</tr>";
-        }
-        mysqli_free_result($res);
-      ?>
-    </tbody>
-  </table>
+  <form action="deletedoctor.php" method="post" enctype="multipart/form-data">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">License number</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Birthday</th>
+          <th scope="col">License date</th>
+          <th scope="col">Hospital</th>
+          <th scope="col">Specialty</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          $tableQuery = "SELECT * FROM doctor WHERE speciality LIKE \"%" . $special . "\" ORDER BY " . $sort . " " . $order . ";";
+          $res = mysqli_query($connection, $tableQuery);
+          if (!$res) {
+            die("databases query failed.");
+          }
+          while ($row = mysqli_fetch_assoc($res)) {
+            echo "<tr>";
+            echo "<td>" . $row['licensenum'] . "</td>";
+            echo "<td>" . $row['firstname'] . "</td>";
+            echo "<td>" . $row['lastname'] . "</td>";
+            echo "<td>" . $row['birthdate'] . "</td>";
+            echo "<td>" . $row['licensedate'] . "</td>";
+            echo "<td>" . $row['hosworksat'] . "</td>";
+            echo "<td>" . $row['speciality'] . "</td>";
+            echo "<td><input type=\"submit\" value=\"X\" class=\"btn btn-primary\" name=\"" . $row['licensenum'] . "\"></td>";
+            echo "</tr>";
+          }
+          mysqli_free_result($res);
+        ?>
+      </tbody>
+    </table>
+  </form>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
