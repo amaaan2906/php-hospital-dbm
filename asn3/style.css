@@ -18,6 +18,10 @@
 	text-align: center;
 }
 
+.new > h3 {
+	font-weight: bold;
+}
+
 .filter > input {
 	height: 50%;
 }
