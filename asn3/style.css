@@ -16,6 +16,11 @@
 .header > a {
 	text-decoration: none;
 	color: white;
+	cursor: pointer;
+}
+
+.header > a:hover {
+	color: rgb(231, 231, 231);
 }
 
 .footer {
