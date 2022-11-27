@@ -59,7 +59,7 @@
   <div class="data container mt-3">
     <?php
       if (isset($_POST['hos'])) {
-        $hosQuery = "SELECT * FROM hospital, doctor WHERE licensenum=headdoc AND hoscode LIKE \"%" . $_POST['hos'] . "\";";
+        $fullHosQuery = "SELECT * FROM hospital, doctor WHERE licensenum=headdoc AND hoscode LIKE \"%" . $_POST['hos'] . "\";";
         $docQuery = "SELECT firstname, lastname FROM doctor WHERE hosworksat LIKE \"%" . $_POST['hos'] . "\";";
       }
     ?>
@@ -75,8 +75,8 @@
       </thead>
       <tbody class="table-group-divider">
         <?php
-          if (isset($hosQuery)) {
-            $res = mysqli_query($connection, $hosQuery);
+          if (isset($fullHosQuery)) {
+            $res = mysqli_query($connection, $fullHosQuery);
             if (!$res) {
               die("databases query failed.");
             }
@@ -94,6 +94,22 @@
         ?>
       </tbody>
     </table>
+    <br>
+    <?php
+      if (isset($docQuery)) {
+        $res = mysqli_query($connection, $docQuery);
+        if (!$res) {
+          die("databases query failed.");
+        }
+        echo '<h4 class="pb-1">Hospital doctors</h4>';
+        echo '<ul class="list-group">';
+        while ($row = mysqli_fetch_assoc($res)) {
+          echo '<li class="list-group-item">' . $row['firstname'] . ' ' . $row['lastname'] . '</li>';
+        }
+        echo "</ul>";
+        mysqli_free_result($res);
+      }
+    ?>
   </div>
 
   <hr>
