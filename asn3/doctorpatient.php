@@ -20,6 +20,6 @@
     }
   }
 
-  header('Location: doctors.php');
+  header('Location: doctors.php#doctorpatient');
   exit;
 ?>

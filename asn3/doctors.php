@@ -259,7 +259,7 @@
   <hr>
 
   <!-- Doctor-Patient -->
-  <form class="doctorpatient container mt-3" action="doctorpatient.php" method="post" enctype="multipart/form-data">
+  <form id="doctorpatient" class="doctorpatient container mt-3" action="doctorpatient.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor-Patient relationship</h3>
     <!-- Assign alert -->
     <?php
