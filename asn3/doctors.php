@@ -16,11 +16,7 @@
   ?>
   <!-- Header on all pages -->
   <div class="header">
-    <h2>Hospital Database</h2>
-  </div>
-  <!-- Show routes -->
-  <div class="nav p-3">
-    <span><a href="/vm269/a3panda">Home</a> / Doctor</span>
+    <h2 class="text-center my-auto">Hospital Database</h2>
   </div>
   <!-- Add new doctor form -->
   <form class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
