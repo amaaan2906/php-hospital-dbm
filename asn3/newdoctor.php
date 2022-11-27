@@ -10,23 +10,26 @@
   $speciality = $_POST['speciality'];
   $hosworksat = $_POST['hosworksat'];
 
-  licensenumLen = strlen($licensenum);
-  if (strlen($licensenum != 4) {
+  if (strlen($licensenum) != 4) {
+    // invalid license number length
     $_SESSION['newDoctor_status'] = "warning";
-  }
-
-  $licensenumCheckQuery = "SELECT * FROM doctor WHERE licensenum LIKE \"%" . $licensenum .  "\";";
-  $numRows = mysqli_num_rows(mysqli_query($connection, $licensenumCheckQuery));
-  if ($numRows > 0) {
-    $_SESSION['newDoctor_status'] = "warning";
-    $_SESSION['newDoctor_message'] = "Doctor license number cannot be duplicated";
+    $_SESSION['newDoctor_message'] = "Doctor license number must be 4 characters";
   } else {
-    $insertQuery = 'INSERT INTO doctor (licensenum, firstname, lastname, licensedate, birthdate, hosworksat, speciality) VALUES ("' . $licensenum . '", "' . $first . '", "' . $last . '", "' . $licensedate . '", "' . $birthdate . '", "' . $hosworksat . '", "' . $speciality . '");';
-    if (!mysqli_query($connection, $insertQuery)) {
-      die ("Error while trying to add new doctor". mysqli_error($connection));
+    // valid length, check for duplicate
+    $licensenumCheckQuery = "SELECT * FROM doctor WHERE licensenum LIKE \"%" . $licensenum .  "\";";
+    $numRows = mysqli_num_rows(mysqli_query($connection, $licensenumCheckQuery));
+    if ($numRows != 0) {
+      $_SESSION['newDoctor_status'] = "warning";
+      $_SESSION['newDoctor_message'] = "Doctor license number must be unique";
     } else {
-      $_SESSION['newDoctor_status'] = "success";
-      $_SESSION['newDoctor_message'] = "Doctor " . $last . " added successfully!";
+      $insertQuery = 'INSERT INTO doctor (licensenum, firstname, lastname, licensedate, birthdate, hosworksat, speciality) VALUES ("' . $licensenum . '", "' . $first . '", "' . $last . '", "' . $licensedate . '", "' . $birthdate . '", "' . $hosworksat . '", "' . $speciality . '");';
+      if (!mysqli_query($connection, $insertQuery)) {
+        $_SESSION['newDoctor_status'] = "warning";
+        $_SESSION['newDoctor_message'] = "Error while trying to add new doctor" . mysqli_error($connection);
+      } else {
+        $_SESSION['newDoctor_status'] = "success";
+        $_SESSION['newDoctor_message'] = "Doctor " . $last . " added successfully!";
+      }
     }
   }
   header('Location: doctors.php');
