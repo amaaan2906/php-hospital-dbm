@@ -19,6 +19,37 @@
     <a class="h2 text-center my-auto" href="http://cs3319.gaul.csd.uwo.ca/vm269/a3panda/">Hospital Database</a>
   </div>
 
+  <!-- View hospital data -->
+  <form class="hospital container mt=3" action="" method="post" enctype="multipart/form-data">
+    <div class="row">
+      <!-- hospital -->
+      <div class="col-8">
+        <select required class="form-select" name="hos">
+          <option selected disabled><strong>Select hospital</strong></option>
+          <?php
+            $hosQuery = "SELECT hoscode, hosname FROM hospital;";
+            $res = mysqli_query($connection, $hosQuery);
+            if (!$res) {
+              die("databases query failed.");
+            }
+            while ($row = mysqli_fetch_assoc($res)) {
+              echo "<option value=\"" . $row['hoscode'] . "\">";
+              echo $row['hoscode'] . ": " . $row['hosname'];
+              echo "</option>";
+            }
+            mysqli_free_result($res);
+          ?>
+        </select>
+      </div>
+      <div class="col-4">
+        <input type="submit" value="View info" class="btn btn-primary">
+      </div>
+    </div>
+
+  </form>
+
+  <hr>
+
   <!-- Update beds -->
   <form id="beds" class="beds container mt-3" action="updatebeds.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Update hospital bed count</h3>
