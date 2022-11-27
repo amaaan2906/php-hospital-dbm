@@ -19,7 +19,7 @@
     <h2 class="text-center my-auto">Hospital Database</h2>
   </div>
   <!-- Add new doctor form -->
-  <form class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
+  <form id="new" class="new container mt-3" action="newdoctor.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Add new doctor</h3>
     <!-- Add alert -->
     <?php
@@ -133,7 +133,7 @@
   <hr>
 
   <!-- Filters -->
-  <form class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
+  <form id="filter" class="filter container mt-3" action="doctors.php" method="post" enctype="multipart/form-data">
     <h3 class="pb-1">Doctor table</h3>
     <!-- Delete alert -->
     <?php

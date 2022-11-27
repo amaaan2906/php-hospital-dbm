@@ -32,6 +32,6 @@
       }
     }
   }
-  header('Location: doctors.php');
+  header('Location: doctors.php#new');
   exit;
 ?>
