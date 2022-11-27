@@ -80,7 +80,8 @@
   <hr>
 
   <!-- View patients -->
-  <form action="" method="post" enctype="multipart/form-data">
+  <form class="looksafter container mt-3" action="" method="post" enctype="multipart/form-data">
+    <h3 class="pb-1">View doctors patients</h3>
     <div class="row">
       <!-- Doctor select -->
       <div class="col">
