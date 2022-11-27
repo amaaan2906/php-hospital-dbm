@@ -318,9 +318,14 @@
           ?>
         </select>
       </div>
-      <br>
-      <input type="submit" value="Assign" class="btn btn-primary">
     </div>
+    <br>
+    <input type="submit" value="Assign" class="btn btn-primary">
+  </form>
+
+  <hr>
+
+  <form>
   </form>
 
   <div class="footer mt-3">

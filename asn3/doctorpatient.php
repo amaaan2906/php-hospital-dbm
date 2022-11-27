@@ -7,7 +7,7 @@
 
   $existsQuery = "SELECT * FROM looksafter WHERE licensenum = \"" . $licensenum . "\" AND ohipnum = \"" . $ohipnum . "\";";
   if (mysqli_num_rows(mysqli_query($connection, $existsQuery)) > 0) {
-    $_SESSION['doctorpatient_status'] = "warwning";
+    $_SESSION['doctorpatient_status'] = "warning";
     $_SESSION['doctorpatient_message'] = "Doctor is already treating patient";
   } else {
     $insertQuery = "INSERT INTO looksafter (ohipnum, licensenum) VALUES (\"" . $ohipnum . "\", \"" . $licensenum . "\");";
